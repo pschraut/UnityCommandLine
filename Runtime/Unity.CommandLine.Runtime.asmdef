@@ -1,0 +1,21 @@
+{
+    "name": "Unity.CommandLine.Runtime",
+    "references": [
+        "GUID:e028a5ff6e66c3948862cb135cce531c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.oddworm.playmodeinspector",
+            "expression": "0.0.0",
+            "define": "PLAYMODEINSPECTOR_PRESENT"
+        }
+    ],
+    "noEngineReferences": false
+}

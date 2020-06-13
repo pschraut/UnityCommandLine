@@ -1,0 +1,17 @@
+{
+    "name": "Unity.CommandLine.Editor.Tests",
+    "references": [
+        "GUID:82cc1078feb314f48a831e2beecfdba0"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
