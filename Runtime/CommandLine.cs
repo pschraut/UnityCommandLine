@@ -487,7 +487,7 @@ namespace Oddworm.Framework
 #if !ODDWORM_COMMANDLINE_DISABLE
         static bool TryGetParam(string key, Param.Type type, out Param param)
         {
-        var keyHash = Animator.StringToHash(key);
+            var keyHash = Animator.StringToHash(key);
 
             for (var n = 0; n < s_Cached.Count; ++n)
             {
@@ -510,6 +510,7 @@ namespace Oddworm.Framework
         }
 
 #if PLAYMODEINSPECTOR_PRESENT
+        // https://github.com/pschraut/UnityPlayModeInspector
         [Oddworm.Framework.PlayModeInspectorMethod]
 #endif
         static void PlayModeInspectorMethod()
