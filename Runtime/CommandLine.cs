@@ -53,14 +53,14 @@ namespace Oddworm.Framework
 #if ODDWORM_COMMANDLINE_DISABLE
                 return "";
 #else
-                return s_RAW;
+                return s_Text;
 #endif
             }
         }
 
 #if !ODDWORM_COMMANDLINE_DISABLE
         static bool s_Enabled; // Whether the command-line is enabled
-        static string s_RAW = ""; // The raw text passed to Init()
+        static string s_Text = ""; // The text passed to Init()
         static readonly List<string> s_Parsed = new List<string>(16); // The parses text as one "token" per entry
         static readonly List<Param> s_Cached = new List<Param>(16); // The params already queried from the user
 
@@ -123,15 +123,15 @@ namespace Oddworm.Framework
             // Remember the text. We do this, in case user code wants to call
             // Init() multiple times (which is valid) to concatenate the command-line text, like:
             // CommandLine.Init(CommandLine.text + "\n" + newCommandLine);
-            s_RAW = text;
+            s_Text = text;
 
             var sb = new System.Text.StringBuilder(256); // the currently parsed word
             var i = 0; // the current index into the raw text
 
             // Parse the text...
-            while (!string.IsNullOrEmpty(s_RAW) && i < s_RAW.Length)
+            while (!string.IsNullOrEmpty(s_Text) && i < s_Text.Length)
             {
-                var c = s_RAW[i++];
+                var c = s_Text[i++];
 
                 // A white-space character indicates a new argument on the command-line
                 if (char.IsWhiteSpace(c))
@@ -148,13 +148,13 @@ namespace Oddworm.Framework
                 if (c == '\"')
                 {
                     // Read until a quote occurs again
-                    while (i < s_RAW.Length)
+                    while (i < s_Text.Length)
                     {
-                        c = s_RAW[i++];
+                        c = s_Text[i++];
 
                         // Two quotes in succession represent a single quote in a quoted string
                         // "This is ""great""."
-                        if (c == '\"' && i < s_RAW.Length && s_RAW[i] == '\"')
+                        if (c == '\"' && i < s_Text.Length && s_Text[i] == '\"')
                         {
                             sb.Append(c);
                             i++;
@@ -174,7 +174,7 @@ namespace Oddworm.Framework
 
                 // Skip C-style block comments like /* This is a comment */
                 // Check if we found the starting character sequence /*
-                if (c == '/' && i < s_RAW.Length && s_RAW[i] == '*')
+                if (c == '/' && i < s_Text.Length && s_Text[i] == '*')
                 {
                     // If there is no space between the last world and the comment,
                     // then we need to flush the current stringbuffer.
@@ -185,11 +185,11 @@ namespace Oddworm.Framework
                     }
 
                     // Read until closing character sequence */ occurs
-                    while (i < s_RAW.Length)
+                    while (i < s_Text.Length)
                     {
-                        c = s_RAW[i++];
+                        c = s_Text[i++];
 
-                        if (c == '*' && i < s_RAW.Length && s_RAW[i] == '/')
+                        if (c == '*' && i < s_Text.Length && s_Text[i] == '/')
                         {
                             i++;
                             break;
@@ -199,8 +199,8 @@ namespace Oddworm.Framework
                     continue;
                 }
 
-                // Skip C-style line commend like // This is a comment
-                if (c == '/' && i < s_RAW.Length && s_RAW[i] == '/')
+                // Skip C-style line comment like // This is a comment
+                if (c == '/' && i < s_Text.Length && s_Text[i] == '/')
                 {
                     // If there is no space between the last world and the comment,
                     // then we need to flush the current stringbuffer.
@@ -211,9 +211,9 @@ namespace Oddworm.Framework
                     }
 
                     // Read until closing character sequence occurs
-                    while (i < s_RAW.Length)
+                    while (i < s_Text.Length)
                     {
-                        c = s_RAW[i++];
+                        c = s_Text[i++];
 
                         // Line end?
                         if (c == '\n' || c == '\r' || c == '\0')
@@ -559,7 +559,7 @@ namespace Oddworm.Framework
             // The raw text that was passed to CommandLine to parse
             UnityEditor.EditorGUILayout.LabelField("RAW (Read only)", UnityEditor.EditorStyles.boldLabel);
             UnityEditor.EditorGUI.indentLevel++;
-            UnityEditor.EditorGUILayout.TextArea(s_RAW);
+            UnityEditor.EditorGUILayout.TextArea(s_Text);
             UnityEditor.EditorGUI.indentLevel--;
 
             UnityEditor.EditorGUILayout.Space();
