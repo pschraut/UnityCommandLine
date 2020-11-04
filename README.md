@@ -3,7 +3,7 @@
 The CommandLine for Unity package provides a simple API, very similar to [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html), to query key-value pairs.
 
 ```csharp
-var infiniteHealth = CommandLine.GetBool("-InfiniteHealth", false);
+CommandLine.GetBool("-InfiniteHealth", false);
 ```
 The first argument ```-InfiniteHealth``` represents the key. The second argument ```false``` represents a default value, 
 if the key could not be found in the commandline.
@@ -15,6 +15,15 @@ CommandLine supports the following types:
 * ```enum```
 * ```string``` (use quotes to provide strings with spaces)
 
+
+# Usage
+
+* Create a text file in your project that is used to provide commandline options. I prefer ```Assets/StreamingAssets/CommandLine.txt```, but you can use any path you like.
+* Load the commandline file using your favorite API during application/game startup.
+* Call ```CommandLine.Init(text)``` with the text of the commandline file.
+* Call ```CommandLine.GetBool(key, defaultValue)``` and friends to query commandline options.
+
+I provide example code for each step below.
 
 
 # Installation
@@ -31,15 +40,10 @@ In Unity's Package Manager, choose "Add package from git URL" and insert one of 
 
 
 
-# How it works
-
-TBD
-
-
 # Examples
 
 ## How to load from file
-The simplest way to load a commandline file is to use ```System.IO```, which works on many or perhaps platforms.
+The simplest way to load a commandline file is to use ```System.IO```, which works on many or perhaps most platforms.
 
 However, on Android you can't use ```System.IO``` and you must use ```UnityWebRequest``` instead, which isn't shown in the example below.
 
@@ -73,6 +77,8 @@ static void LoadCommandLine()
 ```
 Using the [StreamingAssets](https://docs.unity3d.com/Manual/StreamingAssets.html) folder has the benefit that you can modify the commandline file in a build as well.
 You don't need to create a new build, if you just want to start the game with different commandline options.
+
+I don't provide a built-in method to load the CommandLine, because file loading code is very often project specific.
 
 
 ## How to use it
@@ -175,3 +181,7 @@ This will cause:
 * CommandLine.HasKey returns false
 * CommandLine.Get... calls return the default value
 * CommandLine method bodies are stripped
+
+# Tips
+Create a menu item to open the commandline text file in your project, 
+so you don't need to search in the project every time you want to modify it.
