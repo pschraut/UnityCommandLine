@@ -15,8 +15,11 @@ CommandLine supports the following types:
 * ```enum```
 * ```string``` (use quotes to provide strings with spaces)
 
+CommandLine supports the following comments in your text file:
+* ```// line comments```
+* ```/* block comments */```
 
-# Usage
+# Integration
 
 * Create a text file in your project that is used to provide commandline options. I prefer ```Assets/StreamingAssets/CommandLine.txt```, but you can use any path you like.
 * Load the commandline file using your favorite API during application/game startup.
@@ -91,6 +94,10 @@ Let's assume the CommandLine.txt file contains these options:
 //-InfiniteArmor true
 -DamageMultiplier 8.5
 ```
+I prefer to write one option per line, but you can also have multiple options on the same line.
+```csharp
+-InfiniteHealth true /*-InfiniteArmor true*/ -DamageMultiplier 8.5
+```
 
 The C# code to query above options would be:
 ```csharp
@@ -112,7 +119,7 @@ public class CommandLineExample : MonoBehaviour
     }
 }
 ```
-The output of the above example code is:
+The output of above code is:
 ```
 InfiniteHealth: True
 InfiniteArmor: False
