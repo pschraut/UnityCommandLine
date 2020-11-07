@@ -1,11 +1,17 @@
 # CommandLine for Unity
 
-The CommandLine for Unity package provides a simple API, very similar to [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html), to query key-value pairs.
-
+The CommandLine for Unity package provides the ability to query key-value pairs, very similar to Unity's [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html) API.
+The CommandLine options can be stored in a text file, for example:
+```csharp
+-InfiniteHealth true
+//-InfiniteArmor true
+-DamageMultiplier 8.5
+```
+In order to query if ```-InfiniteHealth``` is set, you use:
 ```csharp
 CommandLine.GetBool("-InfiniteHealth", false);
 ```
-The first argument ```-InfiniteHealth``` represents the key. The second argument ```false``` represents a default value, 
+The first argument ```-InfiniteHealth``` represents the key. The second argument ```false``` represents the default value, 
 if the key could not be found in the commandline.
 
 CommandLine supports the following types:
@@ -31,8 +37,7 @@ I provide example code for each step below.
 
 # Installation
 
-In order to use CommandLine, you have to add the package to your project. As of Unity 2019.3, Unity supports to add packages from git through the Package Manager window.
-
+As of Unity 2019.3, Unity supports to add packages from git through the Package Manager window. 
 In Unity's Package Manager, choose "Add package from git URL" and insert one of the Package URL's you can find below.
 
 ## Package URL's
@@ -178,7 +183,7 @@ This will cause:
 * CommandLine.Get... calls return the default value
 
 
-## Strip CommandLine code in release builds
+## Strip CommandLine code from release builds
 If you don't want to support CommandLine in release builds or whatever specific builds you might have, 
 you can add ```ODDWORM_COMMANDLINE_DISABLE``` to the ```Scripting Define Symbols``` found under 
 ```Edit > Project Settings > Player > Other```.
@@ -190,5 +195,38 @@ This will cause:
 * CommandLine method bodies are stripped
 
 # Tips
-Create a menu item to open the commandline text file in your project, 
-so you don't need to search in the project every time you want to modify it.
+
+## Menu Item
+Create a menu item to easily open the commandline text file in your project.
+```csharp
+#if UNITY_EDITOR
+[UnityEditor.MenuItem("File/Open Commandline", priority = 1000)]
+static void OpenCommandLineMenuItem()
+{
+    // The CommandLine.txt file location
+    var path = System.IO.Path.Combine(Application.streamingAssetsPath, "CommandLine.txt");
+
+    // If the directory does not exist, create it.
+    var directory = System.IO.Path.GetDirectoryName(path);
+    if (!System.IO.Directory.Exists(directory))
+        System.IO.Directory.CreateDirectory(directory);
+
+    // If the CommandLine.txt does not exist, create it.
+    if (!System.IO.File.Exists(path))
+    {
+        System.IO.File.WriteAllText(path, "Need help? Please see https://github.com/pschraut/UnityCommandLine", System.Text.Encoding.UTF8);
+        UnityEditor.AssetDatabase.Refresh();
+    }
+
+    // Open the CommandLine.txt file
+    UnityEditor.EditorUtility.OpenWithDefaultApp(path);
+}
+#endif
+```
+
+## PlayMode Inspector
+If you have my [PlayMode Inspector](https://github.com/pschraut/UnityPlayModeInspector) packages installed, 
+you can also see the internals of CommandLine as shown in the image below. 
+For this open PlayMode Inspector from ```Window > Analysis > PlayMode Inspector``` and use the ```Static...``` drop-down to select
+```CommandLine.PlayModeInspectorMethod```.
+![alt text](Documentation~/images/playmodeinspector.png "PlayMode Inspector")
