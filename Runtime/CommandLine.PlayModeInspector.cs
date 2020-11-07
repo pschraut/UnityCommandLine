@@ -18,6 +18,8 @@ namespace Oddworm.Framework
         [Oddworm.Framework.PlayModeInspectorMethod]
         static void PlayModeInspectorMethod()
         {
+            UnityEditor.EditorGUILayout.Toggle("Is Enabled", isEnabled);
+
             // Display the cached/retrieved params.
             // Here we actually know type, so we can display them properly.
             // We know the type, because the particuler Get... method stored it.
