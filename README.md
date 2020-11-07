@@ -45,8 +45,9 @@ In Unity's Package Manager, choose "Add package from git URL" and insert one of 
 * Call ```CommandLine.Init(text)``` with the text of the commandline file.
 * Call ```CommandLine.GetBool(key, defaultValue)``` and friends to query commandline options.
 
-I provide example code for each step below.
+Please see the video below where I show the integration steps.
 
+[![](http://img.youtube.com/vi/HdA2vDiHHWM/0.jpg)](http://www.youtube.com/watch?v=HdA2vDiHHWM "")
 
 # Examples
 
@@ -195,7 +196,7 @@ This will cause:
 * CommandLine method bodies are stripped
 
 ## Full example
-The full example in a single text block can be found below. Copy/paste, save it to a .cs file in your project and you're good to go.
+The full example in a single text block can be found below. Copy/paste, save it as ```CommandLineExample.cs``` in your project and you're good to go.
 ```csharp
 using UnityEngine;
 using Oddworm.Framework;
