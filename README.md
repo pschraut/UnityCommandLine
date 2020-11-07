@@ -11,7 +11,7 @@ In order to query if ```-InfiniteHealth``` is set, you use:
 ```csharp
 CommandLine.GetBool("-InfiniteHealth", false);
 ```
-The first argument ```-InfiniteHealth``` represents the key. The second argument ```false``` represents the default value, 
+The first argument ```-InfiniteHealth``` represents the key. The second argument, in this case ```false```, represents the default value that is returned, 
 if the key could not be found in the commandline.
 
 CommandLine supports the following types:
@@ -21,7 +21,7 @@ CommandLine supports the following types:
 * ```enum```
 * ```string``` (use quotes to provide strings with spaces)
 
-CommandLine supports the following comments in your text file:
+CommandLine supports C-like comments in your text file:
 * ```// line comments```
 * ```/* block comments */```
 
