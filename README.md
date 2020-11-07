@@ -25,15 +25,6 @@ CommandLine supports the following comments in your text file:
 * ```// line comments```
 * ```/* block comments */```
 
-# Integration
-
-* Create a text file in your project that is used to provide commandline options. I prefer ```Assets/StreamingAssets/CommandLine.txt```, but you can use any path you like.
-* Load the commandline file using your favorite API during application/game startup.
-* Call ```CommandLine.Init(text)``` with the text of the commandline file.
-* Call ```CommandLine.GetBool(key, defaultValue)``` and friends to query commandline options.
-
-I provide example code for each step below.
-
 
 # Installation
 
@@ -46,6 +37,15 @@ In Unity's Package Manager, choose "Add package from git URL" and insert one of 
 |----------|---------------|
 | 1.0.0 | https://github.com/pschraut/UnityCommandLine.git#1.0.0 |
 
+
+# Integration
+
+* Create a text file in your project that is used to provide commandline options. I prefer ```Assets/StreamingAssets/CommandLine.txt```, but you can use any path you like.
+* Load the commandline file using your favorite API during application/game startup.
+* Call ```CommandLine.Init(text)``` with the text of the commandline file.
+* Call ```CommandLine.GetBool(key, defaultValue)``` and friends to query commandline options.
+
+I provide example code for each step below.
 
 
 # Examples
@@ -137,7 +137,7 @@ The ```-``` symbol infront of each commandline option is just my personal prefer
  or you could drop it entirely. The CommandLine code is not bound to any prefix.
 If you don't like prefixes, just don't use them. If you prefer different symbol(s), you can use them too. 
 
-## How to use enum
+## How to query enum options
 Let's assume the CommandLine.txt file contains these options:
 ```csharp
 -Fruit Pineapple
