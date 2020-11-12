@@ -99,7 +99,7 @@ static void LoadCommandLine()
     Oddworm.Framework.CommandLine.Init(System.Environment.CommandLine);
 }
 ```
-While the above code does work in a build perfectly, it the editor on the other hand is only uses the commandline options that where passed to the Unity editor.
+While the above code does work in a build perfectly, it the editor on the other hand it only uses the commandline options that were passed to the Unity editor.
 
 
 ## How to use it
