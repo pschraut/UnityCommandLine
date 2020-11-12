@@ -1,8 +1,5 @@
 # CommandLine for Unity
 
-[![Unity 2019.3+](https://img.shields.io/badge/unity-2019.3%2B-white.svg)](https://unity3d.com/get-unity/download)
-![GitHub](https://img.shields.io/github/license/pschraut/UnityCommandLine)
-
 The CommandLine for Unity package provides the ability to query key-value pairs, very similar to Unity's [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html) API.
 The CommandLine options can be stored in a text file, for example:
 ```csharp
