@@ -1,5 +1,8 @@
 # CommandLine for Unity
 
+[![Unity 2019.3+](https://img.shields.io/badge/unity-2019.3%2B-white.svg)](https://unity3d.com/get-unity/download)
+![GitHub](https://img.shields.io/github/license/pschraut/UnityCommandLine)
+
 The CommandLine for Unity package provides the ability to query key-value pairs, very similar to Unity's [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html) API.
 The CommandLine options can be stored in a text file, for example:
 ```csharp
@@ -88,6 +91,18 @@ Using the [StreamingAssets](https://docs.unity3d.com/Manual/StreamingAssets.html
 You don't need to create a new build, if you just want to start the game with different commandline options.
 
 I don't provide a built-in method to load the CommandLine, because file loading code is very often project specific.
+
+
+## I don't need a commandline file, I just want the options passed to the application
+OK, in this case it's even simpler:
+```csharp
+[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+static void LoadCommandLine()
+{
+    Oddworm.Framework.CommandLine.Init(System.Environment.CommandLine);
+}
+```
+While the above code does work in a build perfectly, it the editor on the other hand is only uses the commandline options that where passed to the Unity editor.
 
 
 ## How to use it
