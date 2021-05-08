@@ -1,5 +1,5 @@
 ﻿//
-// CommandLine for Unity. Copyright (c) 2020 Peter Schraut (www.console-dev.de). See LICENSE.md
+// CommandLine for Unity. Copyright (c) 2020-2021 Peter Schraut (www.console-dev.de). See LICENSE.md
 // https://github.com/pschraut/UnityCommandLine
 //
 #pragma warning disable IDE1006, IDE0017
@@ -23,6 +23,7 @@ namespace Oddworm.Framework
         /// <summary>
         /// Gets/sets whether the CommandLine is enabled. A disabled CommandLine returns the defaultValue always.
         /// Use the ODDWORM_COMMANDLINE_DISABLE scripting define symbol to let the compiler remove the CommandLine method bodies.
+        /// If the ODDWORM_COMMANDLINE_DISABLE scripting define symbol has been set, it returns false always.
         /// </summary>
         public static bool isEnabled
         {
@@ -46,6 +47,7 @@ namespace Oddworm.Framework
 
         /// <summary>
         /// Gets the text that was passed to Init().
+        /// If the ODDWORM_COMMANDLINE_DISABLE scripting define symbol has been set, it returns an empty string always.
         /// </summary>
         public static string text
         {
@@ -57,6 +59,17 @@ namespace Oddworm.Framework
                 return s_Text;
 #endif
             }
+        }
+
+        /// <summary>
+        /// An event that is invoked after Commandline.Init has been called.
+        /// This event is invoked even if the ODDWORM_COMMANDLINE_DISABLE scripting define symbol has been set.
+        /// </summary>
+        public static Action onInitialized
+        {
+            // Didn't mark as "event" on purpose, so user-code can also reset it (clear all handlers)
+            get;
+            set;
         }
 
 #if !ODDWORM_COMMANDLINE_DISABLE
@@ -238,6 +251,11 @@ namespace Oddworm.Framework
                 sb.Clear();
             }
 #endif
+            // Raise the event always, even when disabled. This is to allow subscribed code
+            // to get executed rather than ending up uninitialized. Subscribed code will then
+            // most likely query CommandLine options and if ODDWORM_COMMANDLINE_DISABLE is present,
+            // would receive default values as expected.
+            onInitialized?.Invoke();
         }
 
         /// <summary>
