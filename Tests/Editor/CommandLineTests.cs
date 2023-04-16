@@ -103,6 +103,35 @@ foobar */
         }
 
         [Test]
+        public void DefaultValueWithoutKey()
+        {
+            foreach (var enabled in new[] { true, false })
+            {
+                CommandLine.isEnabled = enabled;
+
+                foreach (var s in s_SameCommandLines1)
+                {
+                    CommandLine.Init(s);
+
+                    Assert.AreEqual(CommandLine.GetString("-KeyDoesNotExist", "Hello"), "Hello");
+                    Assert.AreEqual(CommandLine.GetString("-KeyDoesNotExist", "World"), "World");
+
+                    Assert.AreEqual(CommandLine.GetBool("-KeyDoesNotExist", true), true);
+                    Assert.AreEqual(CommandLine.GetBool("-KeyDoesNotExist", false), false);
+
+                    Assert.AreEqual(CommandLine.GetInt("-KeyDoesNotExist", 1), 1);
+                    Assert.AreEqual(CommandLine.GetInt("-KeyDoesNotExist", 0), 0);
+
+                    Assert.AreEqual(CommandLine.GetFloat("-KeyDoesNotExist", 1.23f), 1.23f);
+                    Assert.AreEqual(CommandLine.GetFloat("-KeyDoesNotExist", 0), 0);
+
+                    Assert.AreEqual(CommandLine.GetEnum<Fruit>("-KeyDoesNotExist", Fruit.Banana), Fruit.Banana);
+                    Assert.AreEqual(CommandLine.GetEnum<Fruit>("-KeyDoesNotExist", Fruit.Apple), Fruit.Apple);
+                }
+            }
+        }
+
+        [Test]
         public void String()
         {
             foreach (var enabled in new[] { true, false })
