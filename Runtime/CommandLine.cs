@@ -300,22 +300,28 @@ namespace Oddworm.Framework
 
             // It's not in the cache yet. Scan the command-line strings for the requested key
             var value = defaultValue;
+            var hasKey = false;
             for (var n = 0; n < s_Parsed.Count - 1; ++n)
             {
                 if (!string.Equals(s_Parsed[n], key, StringComparison.OrdinalIgnoreCase))
                     continue;
 
                 value = s_Parsed[n + 1];
+                hasKey = true;
                 break;
             }
 
-            // Add the param to the cache
-            var newParam = new Param();
-            newParam.key = key;
-            newParam.keyHash = Animator.StringToHash(key);
-            newParam.type = Param.Type.String;
-            newParam.stringValue = value;
-            s_Cached.Add(newParam);
+            if (hasKey)
+            {
+                // Add the param to the cache only when the key was found.
+                // This is to support to pass different default values when no key for it exists.
+                var newParam = new Param();
+                newParam.key = key;
+                newParam.keyHash = Animator.StringToHash(key);
+                newParam.type = Param.Type.String;
+                newParam.stringValue = value;
+                s_Cached.Add(newParam);
+            }
 
             return value;
 #endif
@@ -341,6 +347,7 @@ namespace Oddworm.Framework
 
             // It's not in the cache yet. Scan the command-line strings for the requested key
             var value = defaultValue;
+            var hasKey = false;
             for (var n = 0; n < s_Parsed.Count - 1; ++n)
             {
                 if (!string.Equals(s_Parsed[n], key, StringComparison.OrdinalIgnoreCase))
@@ -349,16 +356,20 @@ namespace Oddworm.Framework
                 if (!float.TryParse(s_Parsed[n + 1], out value))
                     value = defaultValue;
 
+                hasKey = true;
                 break;
             }
 
-            // Add the param to the cache
-            var newParam = new Param();
-            newParam.key = key;
-            newParam.keyHash = Animator.StringToHash(key);
-            newParam.type = Param.Type.Float;
-            newParam.floatValue = value;
-            s_Cached.Add(newParam);
+            if (hasKey)
+            {
+                // Add the param to the cache
+                var newParam = new Param();
+                newParam.key = key;
+                newParam.keyHash = Animator.StringToHash(key);
+                newParam.type = Param.Type.Float;
+                newParam.floatValue = value;
+                s_Cached.Add(newParam);
+            }
 
             return value;
 #endif
@@ -384,6 +395,7 @@ namespace Oddworm.Framework
 
             // It's not in the cache yet. Scan the command-line strings for the requested key
             var value = defaultValue;
+            var hasKey = false;
             for (var n = 0; n < s_Parsed.Count - 1; ++n)
             {
                 if (!string.Equals(s_Parsed[n], key, StringComparison.OrdinalIgnoreCase))
@@ -392,16 +404,20 @@ namespace Oddworm.Framework
                 if (!int.TryParse(s_Parsed[n + 1], out value))
                     value = defaultValue;
 
+                hasKey = true;
                 break;
             }
 
-            // Add the param to the cache
-            var newParam = new Param();
-            newParam.key = key;
-            newParam.keyHash = Animator.StringToHash(key);
-            newParam.type = Param.Type.Int;
-            newParam.intValue = value;
-            s_Cached.Add(newParam);
+            if (hasKey)
+            {
+                // Add the param to the cache
+                var newParam = new Param();
+                newParam.key = key;
+                newParam.keyHash = Animator.StringToHash(key);
+                newParam.type = Param.Type.Int;
+                newParam.intValue = value;
+                s_Cached.Add(newParam);
+            }
 
             return value;
 #endif
@@ -427,6 +443,7 @@ namespace Oddworm.Framework
 
             // It's not in the cache yet. Scan the command-line strings for the requested key.
             var value = defaultValue;
+            var hasKey = false;
             for (var n = 0; n < s_Parsed.Count - 1; ++n)
             {
                 if (!string.Equals(s_Parsed[n], key, StringComparison.OrdinalIgnoreCase))
@@ -444,16 +461,20 @@ namespace Oddworm.Framework
                     value = !string.Equals(s_Parsed[n + 1], "false", StringComparison.OrdinalIgnoreCase);
                 }
 
+                hasKey = true;
                 break;
             }
 
-            // Add the param to the cache
-            var newParam = new Param();
-            newParam.key = key;
-            newParam.keyHash = Animator.StringToHash(key);
-            newParam.type = Param.Type.Bool;
-            newParam.boolValue = value;
-            s_Cached.Add(newParam);
+            if (hasKey)
+            {
+                // Add the param to the cache
+                var newParam = new Param();
+                newParam.key = key;
+                newParam.keyHash = Animator.StringToHash(key);
+                newParam.type = Param.Type.Bool;
+                newParam.boolValue = value;
+                s_Cached.Add(newParam);
+            }
 
             return value;
 #endif
@@ -480,6 +501,7 @@ namespace Oddworm.Framework
                 return (TEnum)param.enumValue;
 
             TEnum value = defaultValue;
+            var hasKey = false;
             for (var n = 0; n < s_Parsed.Count - 1; ++n)
             {
                 if (!string.Equals(s_Parsed[n], key, StringComparison.OrdinalIgnoreCase))
@@ -488,16 +510,20 @@ namespace Oddworm.Framework
                 if (!Enum.TryParse(s_Parsed[n + 1], true, out value))
                     value = defaultValue;
 
+                hasKey = true;
                 break;
             }
 
             // Add the param to the cache
-            var newParam = new Param();
-            newParam.key = key;
-            newParam.keyHash = Animator.StringToHash(key);
-            newParam.type = Param.Type.Enum;
-            newParam.enumValue = value;
-            s_Cached.Add(newParam);
+            if (hasKey)
+            {
+                var newParam = new Param();
+                newParam.key = key;
+                newParam.keyHash = Animator.StringToHash(key);
+                newParam.type = Param.Type.Enum;
+                newParam.enumValue = value;
+                s_Cached.Add(newParam);
+            }
 
             return value;
 #endif
