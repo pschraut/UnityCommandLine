@@ -35,6 +35,7 @@ In Unity's Package Manager, choose "Add package from git URL" and insert one of 
 
 | Version  |     Link      |
 |----------|---------------|
+| 1.2.0 | https://github.com/pschraut/UnityCommandLine.git#1.2.0 |
 | 1.1.0 | https://github.com/pschraut/UnityCommandLine.git#1.1.0 |
 | 1.0.0 | https://github.com/pschraut/UnityCommandLine.git#1.0.0 |
 
@@ -106,7 +107,7 @@ static void LoadCommandLine()
     Oddworm.Framework.CommandLine.Init(System.Environment.CommandLine);
 }
 ```
-While the above code does work in a build perfectly, it the editor on the other hand it only uses the commandline options that were passed to the Unity editor.
+While the above code does work in a build perfectly, but in the editor, it only uses the commandline options that were passed to the Unity editor.
 
 
 ## How to use it
@@ -201,7 +202,7 @@ CommandLine.isEnabled = false;
 This will cause:
 * CommandLine.HasKey returns false
 * CommandLine.Get... calls return the default value
-* CommandLine.onInitialize gets still involked
+* CommandLine.onInitialize gets still invoked
 
 
 ## Strip CommandLine code from release builds
@@ -214,7 +215,7 @@ This will cause:
 * CommandLine.HasKey returns false
 * CommandLine.Get... calls return the default value
 * CommandLine method bodies are stripped
-* CommandLine.onInitialize gets still involked
+* CommandLine.onInitialize gets still invoked
 
 ## Full example
 The full example in a single text block can be found below. Copy/paste, save it as ```CommandLineExample.cs``` in your project and you're good to go.
