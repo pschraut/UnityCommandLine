@@ -1,5 +1,5 @@
 ﻿//
-// CommandLine for Unity. Copyright (c) 2020 Peter Schraut (www.console-dev.de). See LICENSE.md
+// CommandLine for Unity. Copyright (c) 2020-2024 Peter Schraut (www.console-dev.de). See LICENSE.md
 // https://github.com/pschraut/UnityCommandLine
 //
 #pragma warning disable IDE1006, IDE0017
